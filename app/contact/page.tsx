@@ -1,47 +1,36 @@
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import InquiryForm from "@/components/InquiryForm";
+
 export default function ContactPage() {
+  const searchParams = useSearchParams();
+  const source = searchParams.get("source") ?? "";
+
   return (
     <main className="mx-auto max-w-3xl px-6 py-24">
-      <p className="text-sm uppercase tracking-[0.2em] text-white/50">Contact</p>
+      <p className="text-sm uppercase tracking-[0.2em] text-[color:var(--color-accent)]">
+        Contact
+      </p>
       <h1 className="mt-4 text-5xl font-semibold">Start a project</h1>
-      <p className="mt-6 text-white/70">
+      <p className="mt-6 text-[color:var(--color-text-muted)]">
         Tell us about your brand, website, or digital project.
       </p>
 
-      <form className="mt-10 space-y-6">
-        <div>
-          <label className="mb-2 block text-sm text-white/70">Name</label>
-          <input
-            type="text"
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 outline-none transition focus:border-white/30"
-            placeholder="Your name"
-          />
+      {source ? (
+        <div className="mt-8 rounded-2xl border border-[color:var(--color-line)] bg-[color:var(--color-surface)] p-4 text-sm text-[color:var(--color-text-muted)]">
+          You came from the homepage CTA. A few details have already been
+          carried over so the handoff feels smoother.
         </div>
+      ) : null}
 
-        <div>
-          <label className="mb-2 block text-sm text-white/70">Email</label>
-          <input
-            type="email"
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 outline-none transition focus:border-white/30"
-            placeholder="you@example.com"
-          />
-        </div>
-
-        <div>
-          <label className="mb-2 block text-sm text-white/70">Project details</label>
-          <textarea
-            rows={6}
-            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 outline-none transition focus:border-white/30"
-            placeholder="Tell us about your project..."
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition hover:opacity-90"
-        >
-          Send Inquiry
-        </button>
-      </form>
+      <InquiryForm
+        source={source || "contact-page"}
+        defaultValues={{
+          email: searchParams.get("email") ?? "",
+          projectType: searchParams.get("project") ?? "",
+        }}
+      />
     </main>
   );
 }
