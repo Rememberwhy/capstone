@@ -1,0 +1,41 @@
+CAPSTONE
+Launch Readiness Notes
+
+Use this guide before launching a new website, campaign, or digital product update.
+
+1. Core message
+- Is the main offer final and approved?
+- Are headlines, CTA labels, and service descriptions aligned?
+- Has key copy been reviewed for clarity and consistency?
+
+2. Visual checks
+- Are final images, mockups, and brand assets optimized?
+- Do layouts hold up on mobile, tablet, and desktop?
+- Are hover states, forms, and interactive elements polished?
+
+3. Conversion setup
+- Are inquiry forms working?
+- Is booking configured and tested?
+- Are lead destinations, thank-you states, or follow-up steps clear?
+
+4. SEO and discovery
+- Are page titles and descriptions written?
+- Is the sitemap included?
+- Are important pages indexable?
+
+5. Analytics and tracking
+- Are CTA clicks and bookings being tracked?
+- Are campaign links tagged correctly?
+- Is there a clear plan for measuring results after launch?
+
+6. Operational readiness
+- Who owns updates after launch?
+- What is the response plan if an issue appears?
+- Is there a support or optimization window scheduled?
+
+7. Final sign-off
+- Has the business owner or lead stakeholder reviewed the live-ready version?
+- Are all priority pages complete?
+- Does the experience feel trustworthy and intentional?
+
+Launches perform better when the message, visuals, and conversion path are aligned.

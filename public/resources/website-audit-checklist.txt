@@ -1,0 +1,46 @@
+CAPSTONE
+Website Audit Checklist
+
+Use this checklist to review whether a website is building trust, guiding action, and supporting conversion.
+
+1. First impression
+- Is the offer clear within the first screen?
+- Does the homepage immediately explain who the business helps?
+- Do visuals support credibility rather than distract from it?
+
+2. Trust signals
+- Are there testimonials, proof points, or client logos?
+- Are contact details easy to find?
+- Are team, process, or capability pages available?
+
+3. Messaging clarity
+- Is the language specific instead of generic?
+- Are services explained in terms of outcomes?
+- Is there a clear reason to choose this company now?
+
+4. Structure and navigation
+- Can users reach key pages in one or two clicks?
+- Does the navigation reflect how buyers think?
+- Is the mobile menu as clear as the desktop menu?
+
+5. Conversion friction
+- Is there a strong primary call to action?
+- Are forms short, clear, and easy to complete?
+- Is there a low-friction option like booking a call or requesting an audit?
+
+6. Page quality
+- Do service pages explain scope, deliverables, and fit?
+- Do case studies show problem, solution, and result?
+- Is pricing or engagement guidance available where appropriate?
+
+7. Technical confidence
+- Does the site load smoothly on mobile?
+- Are there layout issues, overflow, or broken components?
+- Are metadata, sitemap, and structured site pages in place?
+
+8. Final review
+- What feels unclear?
+- What weakens trust?
+- What would make it easier for the right client to act?
+
+If you want a tailored review, request an audit at Capstone.

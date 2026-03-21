@@ -54,18 +54,32 @@ export default function ResourcesPage() {
             key={resource.title}
             className="rounded-[30px] border border-[color:var(--color-line)] bg-[color:var(--color-surface)] p-6"
           >
-            <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--color-accent)]">
-              {resource.format}
-            </p>
+            <div className="flex items-center justify-between gap-4">
+              <p className="text-xs uppercase tracking-[0.18em] text-[color:var(--color-accent)]">
+                {resource.format}
+              </p>
+              <p className="text-xs uppercase tracking-[0.16em] text-[color:var(--color-text-muted)]">
+                {resource.detail}
+              </p>
+            </div>
             <h2 className="mt-4 text-2xl font-semibold text-[color:var(--color-text)]">
               {resource.title}
             </h2>
             <p className="mt-4 text-sm leading-7 text-[color:var(--color-text-muted)]">
               {resource.summary}
             </p>
-            <button type="button" className="button-secondary mt-6">
-              Download Coming Soon
-            </button>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={resource.href}
+                download
+                className="button-primary"
+              >
+                Download Resource
+              </a>
+              <Link href="/audit-workshop" className="button-secondary">
+                Request a Tailored Version
+              </Link>
+            </div>
           </article>
         ))}
       </div>

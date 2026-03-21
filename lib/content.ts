@@ -531,18 +531,24 @@ export const resourceDownloads = [
   {
     title: "Website Audit Checklist",
     format: "PDF",
+    href: "/resources/website-audit-checklist.txt",
+    detail: "Immediate download",
     summary:
       "A practical checklist for reviewing trust, clarity, structure, and conversion friction across a business website.",
   },
   {
     title: "Brand Positioning Worksheet",
     format: "PDF",
+    href: "/resources/brand-positioning-worksheet.txt",
+    detail: "Internal worksheet",
     summary:
       "A short internal worksheet to help teams clarify audience, offer, value, and what makes the brand easier to choose.",
   },
   {
     title: "Launch Readiness Notes",
     format: "Guide",
+    href: "/resources/launch-readiness-notes.txt",
+    detail: "Planning document",
     summary:
       "A planning resource for teams preparing to launch a redesigned website, campaign, or new product experience.",
   },

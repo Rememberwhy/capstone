@@ -1,8 +1,10 @@
+@import "@fontsource-variable/manrope";
+@import "@fontsource-variable/space-grotesk";
 @import "tailwindcss";
 
 :root {
-  --font-sans: "Manrope", sans-serif;
-  --font-display: "Space Grotesk", sans-serif;
+  --font-sans: "Manrope Variable", "Manrope", sans-serif;
+  --font-display: "Space Grotesk Variable", "Space Grotesk", sans-serif;
   --color-bg: #0b0b0a;
   --color-bg-elevated: #141412;
   --color-surface: #1b1b18;

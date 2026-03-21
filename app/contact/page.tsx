@@ -1,11 +1,20 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
 import InquiryForm from "@/components/InquiryForm";
 
-export default function ContactPage() {
-  const searchParams = useSearchParams();
-  const source = searchParams.get("source") ?? "";
+type SearchParamValue = string | string[] | undefined;
+
+function getSearchParam(value: SearchParamValue) {
+  return Array.isArray(value) ? value[0] ?? "" : value ?? "";
+}
+
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams?: Promise<Record<string, SearchParamValue>>;
+}) {
+  const params = (await searchParams) ?? {};
+  const source = getSearchParam(params.source);
+  const email = getSearchParam(params.email);
+  const projectType = getSearchParam(params.project);
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-24">
@@ -27,8 +36,8 @@ export default function ContactPage() {
       <InquiryForm
         source={source || "contact-page"}
         defaultValues={{
-          email: searchParams.get("email") ?? "",
-          projectType: searchParams.get("project") ?? "",
+          email,
+          projectType,
         }}
       />
     </main>
