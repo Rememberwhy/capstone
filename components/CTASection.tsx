@@ -3,14 +3,19 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { track } from "@vercel/analytics";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
+import { trackMarketingEvent } from "@/lib/marketing-tracking";
 
 const projectOptions = [
   "Brand identity",
   "Website design",
   "Web development",
+  "Website redesign",
+  "Mobile app development",
+  "Ad campaign creative",
   "Full digital refresh",
 ];
 
@@ -22,6 +27,7 @@ const ctaSchema = z.object({
 type CtaFormValues = z.infer<typeof ctaSchema>;
 
 export default function CTASection() {
+  const router = useRouter();
   const [status, setStatus] = useState<"idle" | "success" | "fallback">("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const {
@@ -75,6 +81,7 @@ export default function CTASection() {
           email: values.email,
           projectType: values.projectType,
           source: "homepage-cta",
+          pagePath: "/",
         }),
       });
 
@@ -87,6 +94,16 @@ export default function CTASection() {
         track("homepage_cta_captured", {
           projectType: values.projectType,
         });
+        trackMarketingEvent("Lead", {
+          projectType: values.projectType,
+          source: "homepage-cta",
+        });
+        const params = new URLSearchParams({
+          type: "lead",
+          source: "homepage-cta",
+          project: values.projectType,
+        });
+        router.push(`/thank-you?${params.toString()}`);
         return;
       }
 
@@ -131,6 +148,22 @@ export default function CTASection() {
             <span className="rounded-full border border-[color:var(--color-line)] bg-[color:var(--color-surface)] px-4 py-2">
               Faster project intake
             </span>
+          </div>
+
+          <div className="mt-8 grid gap-3">
+            {[
+              "Tell us what kind of project you are considering.",
+              "We review fit, urgency, and the strongest starting point.",
+              "You move into a call, proposal, or fuller brief with more clarity.",
+            ].map((item, index) => (
+              <div
+                key={item}
+                className="rounded-[20px] border border-[color:var(--color-line)] bg-[rgba(11,11,10,0.14)] px-4 py-4 text-sm leading-6 text-[color:var(--color-text-muted)]"
+              >
+                <span className="mr-3 text-[color:var(--color-accent)]">0{index + 1}</span>
+                {item}
+              </div>
+            ))}
           </div>
         </div>
 
@@ -182,10 +215,23 @@ export default function CTASection() {
           </form>
 
           {status === "success" ? (
-            <p className="mt-4 text-sm leading-6 text-emerald-300">
-              Thanks. Your details are in. The next step is a quick review on
-              our side, then we&apos;ll guide you toward the best fit.
-            </p>
+            <div className="mt-4 rounded-[22px] border border-emerald-500/30 bg-emerald-500/10 p-5 text-sm leading-6 text-emerald-100">
+              <p className="text-xs uppercase tracking-[0.18em] text-emerald-300">
+                Lead captured
+              </p>
+              <p className="mt-3">
+                Thanks. Your details are in. We&apos;ll review fit and guide you
+                toward the strongest next step.
+              </p>
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+                <Link href="/book-a-call" className="button-primary">
+                  Book a Call Now
+                </Link>
+                <Link href={briefUrl} className="button-secondary">
+                  Add More Project Detail
+                </Link>
+              </div>
+            </div>
           ) : null}
 
           {status === "fallback" ? (

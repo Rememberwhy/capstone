@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { services } from "@/lib/content";
+import { getInsightsBySlugs, services } from "@/lib/content";
+import { trackConversionClick } from "@/lib/tracking-events";
 
 export default function ServicesPreview() {
   return (
@@ -31,34 +32,72 @@ export default function ServicesPreview() {
         </div>
 
         <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {services.map((service, index) => (
-            <motion.div
-              key={service.title}
-              whileHover={{ y: -8 }}
-              transition={{ duration: 0.22, ease: "easeOut" }}
-              className="group rounded-[28px] border border-[color:var(--color-line)] bg-[linear-gradient(180deg,rgba(27,27,24,1),rgba(33,31,26,0.92))] p-6"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="text-xl font-semibold text-[color:var(--color-text)]">
-                  {service.title}
-                </h3>
-                <motion.span
-                  initial={false}
-                  whileHover={{ x: 2 }}
-                  className="text-sm text-[color:var(--color-accent)]"
-                >
-                  0{index + 1}
-                </motion.span>
-              </div>
-              <p className="mt-3 leading-7 text-[color:var(--color-text-muted)]">
-                {service.description}
-              </p>
-              <p className="mt-4 text-sm leading-6 text-[color:var(--color-accent)]/80 transition duration-300 group-hover:text-[color:var(--color-accent-strong)]">
-                {service.detail}
-              </p>
-              <div className="mt-6 h-px w-16 bg-[color:var(--color-line)] transition duration-300 group-hover:w-28 group-hover:bg-[color:var(--color-accent)]" />
-            </motion.div>
-          ))}
+          {services.map((service, index) => {
+            const [relatedInsight] = getInsightsBySlugs(service.relatedInsights);
+
+            return (
+              <motion.article
+                key={service.title}
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
+                className="group rounded-[28px] border border-[color:var(--color-line)] bg-[linear-gradient(180deg,rgba(27,27,24,1),rgba(33,31,26,0.92))] p-6"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="text-xl font-semibold text-[color:var(--color-text)]">
+                    {service.title}
+                  </h3>
+                  <motion.span
+                    initial={false}
+                    whileHover={{ x: 2 }}
+                    className="text-sm text-[color:var(--color-accent)]"
+                  >
+                    0{index + 1}
+                  </motion.span>
+                </div>
+                <p className="mt-3 leading-7 text-[color:var(--color-text-muted)]">
+                  {service.description}
+                </p>
+                <p className="mt-4 text-sm leading-6 text-[color:var(--color-accent)]/80 transition duration-300 group-hover:text-[color:var(--color-accent-strong)]">
+                  {service.detail}
+                </p>
+                {relatedInsight ? (
+                  <div className="mt-5">
+                    <p className="text-[11px] uppercase tracking-[0.16em] text-[color:var(--color-text-muted)]">
+                      Related insight
+                    </p>
+                    <Link
+                      href={`/insights/${relatedInsight.slug}`}
+                      onClick={() =>
+                        trackConversionClick("service_related_insight_clicked", {
+                          service: service.slug,
+                          insight: relatedInsight.slug,
+                        })
+                      }
+                      className="mt-2 inline-flex text-sm text-[color:var(--color-accent)] transition hover:text-[color:var(--color-text)]"
+                    >
+                      {relatedInsight.title}
+                    </Link>
+                  </div>
+                ) : null}
+                <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                  <Link
+                    href={`/services/${service.slug}`}
+                    onClick={() =>
+                      trackConversionClick(
+                        "service_preview_clicked",
+                        { service: service.slug, location: "homepage-services" },
+                        "ViewContent",
+                      )
+                    }
+                    className="button-secondary"
+                  >
+                    Explore service
+                  </Link>
+                </div>
+                <div className="mt-6 h-px w-16 bg-[color:var(--color-line)] transition duration-300 group-hover:w-28 group-hover:bg-[color:var(--color-accent)]" />
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>

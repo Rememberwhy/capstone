@@ -1,24 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { motion, cubicBezier, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, cubicBezier } from "framer-motion";
+import { trackConversionClick } from "@/lib/tracking-events";
 
 const stats = [
   {
     value: "20+",
-    label: "Brand, website, and digital experience projects delivered for businesses ready to level up.",
-    mobileLabel: "Projects delivered across brand, web, and digital growth work.",
+    label:
+      "Projects delivered across branding, websites, and digital growth engagements.",
+    mobileLabel: "20+ projects delivered across brand, web, and growth work.",
   },
   {
-    value: "Positioning",
-    label: "Clearer messaging, stronger identity systems, and sharper market presentation.",
-    mobileLabel: "Sharper messaging, identity, and brand presentation.",
+    value: "End-to-end",
+    label:
+      "From positioning and visual identity to design and development in one seamless process.",
+    mobileLabel: "Strategy, identity, design, and development in one process.",
   },
   {
-    value: "Websites",
-    label: "Premium digital experiences designed to earn trust, guide decisions, and support growth.",
-    mobileLabel: "Websites built to earn trust and drive better inquiries.",
+    value: "Built for trust",
+    label:
+      "Premium digital experiences designed to communicate clearly, earn credibility, and convert better.",
+    mobileLabel: "Premium websites built to earn trust and convert better.",
   },
 ];
 
@@ -36,27 +39,15 @@ const fadeUp = {
 };
 
 export default function Hero() {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-  const glowY = useTransform(scrollYProgress, [0, 1], [0, 140]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, 36]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.72]);
-
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-[color:var(--color-bg)]">
-      <motion.div className="pointer-events-none absolute inset-0 opacity-70" style={{ y: glowY }}>
-        <div className="absolute left-1/2 top-0 h-[320px] w-[320px] -translate-x-1/2 rounded-full bg-[#c6a56b]/16 blur-[110px] md:h-[500px] md:w-[500px] md:blur-[140px]" />
-        <div className="absolute left-0 top-[30%] h-[180px] w-[180px] rounded-full bg-[#8e9a82]/12 blur-[90px] md:h-[260px] md:w-[260px] md:blur-[120px]" />
-        <div className="absolute bottom-0 right-0 h-[220px] w-[220px] rounded-full bg-[#f3f0e8]/6 blur-[90px] md:h-[320px] md:w-[320px] md:blur-[120px]" />
-      </motion.div>
+    <section className="relative overflow-hidden bg-[color:var(--color-bg)]">
+      <div className="pointer-events-none absolute inset-0 opacity-70">
+        <div className="absolute left-1/2 top-0 h-[280px] w-[280px] -translate-x-1/2 rounded-full bg-[#c6a56b]/14 blur-[84px] md:h-[420px] md:w-[420px] md:blur-[110px]" />
+        <div className="absolute left-0 top-[30%] h-[150px] w-[150px] rounded-full bg-[#8e9a82]/10 blur-[72px] md:h-[220px] md:w-[220px] md:blur-[96px]" />
+        <div className="absolute bottom-0 right-0 h-[180px] w-[180px] rounded-full bg-[#f3f0e8]/5 blur-[72px] md:h-[260px] md:w-[260px] md:blur-[96px]" />
+      </div>
 
-      <motion.div
-        className="relative mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-center px-5 py-20 md:px-8 md:py-32"
-        style={{ y: contentY, opacity: contentOpacity }}
-      >
+      <div className="relative mx-auto flex min-h-[92vh] max-w-7xl flex-col justify-center px-5 py-20 md:px-8 md:py-32">
         <motion.div
           initial="hidden"
           animate="show"
@@ -77,11 +68,11 @@ export default function Hero() {
           className="mt-6 max-w-5xl text-4xl font-semibold leading-[0.98] tracking-tight text-balance sm:text-5xl md:mt-8 md:text-7xl"
         >
           <span className="md:hidden">
-            We build brands and websites people trust faster.
+            We build premium brands and websites that earn trust.
           </span>
           <span className="hidden md:inline">
-            We help ambitious businesses look sharper, sound clearer, and grow
-            through better brand and website systems.
+            We build premium brands and websites that help businesses earn trust,
+            stand out clearly, and grow.
           </span>
         </motion.h1>
 
@@ -93,13 +84,13 @@ export default function Hero() {
           className="mt-6 max-w-3xl text-base leading-7 text-[color:var(--color-text-muted)] sm:text-lg md:mt-8 md:text-xl md:leading-8"
         >
           <span className="md:hidden">
-            Capstone combines strategy, design, and development to create a
-            stronger first impression and a better path to inquiry.
+            Strategy, design, and development for businesses that need a
+            stronger digital presence.
           </span>
           <span className="hidden md:inline">
-            Capstone combines positioning, design, and development to create
-            brands and websites that feel premium, communicate clearly, and
-            support real business growth.
+            Capstone combines strategy, design, and development to help
+            ambitious businesses clarify their positioning, strengthen
+            credibility, and turn attention into better inquiries.
           </span>
         </motion.p>
 
@@ -111,21 +102,44 @@ export default function Hero() {
           className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-4"
         >
           <Link
-            href="/case-studies"
+            href="/book-a-call"
+            onClick={() =>
+              trackConversionClick(
+                "hero_cta_clicked",
+                { action: "book-call", location: "hero" },
+                "Contact",
+              )
+            }
             className="button-primary sm:text-left"
           >
-            <span className="md:hidden">View Work</span>
-            <span className="hidden md:inline">View Case Studies</span>
+            <span>Book a Call</span>
           </Link>
 
           <Link
-            href="/book-a-call"
+            href="/case-studies"
+            onClick={() =>
+              trackConversionClick(
+                "hero_cta_clicked",
+                { action: "case-studies", location: "hero" },
+                "ViewContent",
+              )
+            }
             className="button-secondary sm:text-left"
           >
-            <span className="md:hidden">Book Call</span>
-            <span className="hidden md:inline">Book a Discovery Call</span>
+            <span>View Case Studies</span>
           </Link>
         </motion.div>
+
+        <motion.p
+          initial="hidden"
+          animate="show"
+          custom={4}
+          variants={fadeUp}
+          className="mt-5 max-w-2xl text-sm leading-6 text-[color:var(--color-text-muted)] md:mt-6 md:text-[15px]"
+        >
+          Brand strategy • Visual identity • Website design • Development •
+          Conversion-focused digital systems
+        </motion.p>
 
         <div className="mt-14 grid gap-4 md:mt-20 md:grid-cols-3 md:gap-5">
           {stats.map((item, index) => (
@@ -133,7 +147,7 @@ export default function Hero() {
               key={item.value}
               initial="hidden"
               animate="show"
-              custom={index + 4}
+              custom={index + 5}
               variants={fadeUp}
               className="rounded-[24px] border border-[color:var(--color-line)] bg-[color:var(--color-surface)] p-5 backdrop-blur-sm md:rounded-[28px] md:p-6"
             >
@@ -147,7 +161,7 @@ export default function Hero() {
             </motion.div>
           ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

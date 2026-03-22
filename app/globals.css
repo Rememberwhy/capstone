@@ -34,6 +34,12 @@ body {
     var(--color-bg);
 }
 
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(5.75rem + env(safe-area-inset-bottom));
+  }
+}
+
 * {
   box-sizing: border-box;
 }

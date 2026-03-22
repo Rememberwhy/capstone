@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { Suspense } from "react";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
 import ScrollPromptCTA from "@/components/ScrollPromptCTA";
 import SmoothScroll from "@/components/SmoothScroll";
+import CookieConsent from "@/components/CookieConsent";
+import TrackingScripts from "@/components/TrackingScripts";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -53,6 +56,10 @@ export default function RootLayout({
         </SmoothScroll>
         <StickyMobileCTA />
         <ScrollPromptCTA />
+        <CookieConsent />
+        <Suspense fallback={null}>
+          <TrackingScripts />
+        </Suspense>
         <Analytics />
       </body>
     </html>

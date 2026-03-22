@@ -15,6 +15,7 @@ export default async function ContactPage({
   const source = getSearchParam(params.source);
   const email = getSearchParam(params.email);
   const projectType = getSearchParam(params.project);
+  const details = getSearchParam(params.details);
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-24">
@@ -35,10 +36,14 @@ export default async function ContactPage({
 
       <InquiryForm
         source={source || "contact-page"}
+        thankYouType="contact"
         defaultValues={{
           email,
           projectType,
+          details,
         }}
+        successTitle="Thanks. Your project brief is in."
+        successMessage="We’ll review the context and come back with the clearest next step, whether that is a call, a proposal path, or a more focused recommendation."
       />
     </main>
   );

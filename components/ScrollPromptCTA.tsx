@@ -1,8 +1,8 @@
 "use client";
 
-import { track } from "@vercel/analytics";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { trackConversionClick } from "@/lib/tracking-events";
 
 export default function ScrollPromptCTA() {
   const [isVisible, setIsVisible] = useState(false);
@@ -45,14 +45,26 @@ export default function ScrollPromptCTA() {
       <div className="mt-5 flex gap-3">
         <Link
           href="/book-a-call"
-          onClick={() => track("scroll_prompt_clicked", { action: "book-call" })}
+          onClick={() =>
+            trackConversionClick(
+              "scroll_prompt_clicked",
+              { action: "book-call", location: "scroll-prompt" },
+              "Contact",
+            )
+          }
           className="button-primary px-4 py-2 text-sm"
         >
           Book a Call
         </Link>
         <Link
           href="/contact"
-          onClick={() => track("scroll_prompt_clicked", { action: "brief" })}
+          onClick={() =>
+            trackConversionClick(
+              "scroll_prompt_clicked",
+              { action: "brief", location: "scroll-prompt" },
+              "Contact",
+            )
+          }
           className="button-secondary px-4 py-2 text-sm"
         >
           Start Brief
